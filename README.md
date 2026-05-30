@@ -1,6 +1,8 @@
 # automatismes-eam
 Atomes pour générer des beamer sur les automatismes en 1ère
 
+<img width="1198" height="904" alt="image" src="https://github.com/user-attachments/assets/355b3a9f-1b62-4cf1-b10f-41f3f2e50069" />
+
 # utilisation automatisée
 La fichier `beamerthemeautom.sty` contient le thème `beamer` servant de base à la présentation des automatismes.
 
