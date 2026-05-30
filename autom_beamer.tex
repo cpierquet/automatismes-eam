@@ -1,0 +1,42 @@
+% !TeX TXS-program:compile = txs:///lualatex
+
+\documentclass[12pt]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usetheme%
+  [%
+    Noto,
+    Melange,
+    Niveau={Première Générale},
+    Matiere={Mathématique spécifiques},
+    %Labels={a.},
+    %CouleurPrincipale=orange!75!black,
+    %CouleurSecondaire=teal!75!black,
+    %Logo={\includegraphics[height=4cm]{example-image-a}},
+    %Icone={$\div$\enspace}
+  ]{autom}
+\usepackage[french]{babel}
+
+\begin{document}
+
+\begin{frame}[plain]
+\TitreDiapoAutomatisme{Automatismes}{Entraînement n°1}{\today}
+\end{frame}
+
+% ==== Test question manuelle
+\begin{DiapoAutomatisme}{Pourcentages}
+L'opération qui permet de calculer $25\,\%$ de $480$ est :
+
+\smallskip
+
+\eamreponsesautom[2]%
+  {$\dfrac{480}{25 \times 100}$}
+  {$25 \times 480 \times 0{,}1$}
+  {$\dfrac{480 \times 100}{25}$}
+  {$\dfrac{1}{4} \times 480$}
+\end{DiapoAutomatisme}
+
+% ==== Test question insertion
+\CreerDiapoAutomatisme{Calculs numériques}{triparautom/obli/calculs/calculnum_04.tex}
+
+\end{document}
