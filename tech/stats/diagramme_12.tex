@@ -1,0 +1,43 @@
+%=== tech/stats/diagramme_12.tex || Statistiques || Diagramme
+\newcommand\placebarretriple[4]{%
+	\def\largbarre{0.325}
+	\draw[thick,fill=lightgray] ({#1-\largbarre},0) rectangle++ ({2*\largbarre},#2) ;
+	\draw[thick,pattern=north east lines] ({#1-\largbarre},#2) rectangle++ ({2*\largbarre},{#3-#2}) ;
+	\draw[thick,pattern=north west lines] ({#1-\largbarre},#3) rectangle++ ({2*\largbarre},{#4-#3}) ;
+}
+
+\hfill\begin{tikzpicture}[x=1cm,y=0.007cm,scale=0.66,transform shape]
+  \draw[lightgray,xstep=10,ystep=25] (0,0) grid (5.75,700) ;
+  \draw[line width=0.9pt] (0,0) -- (5.75,0) ;
+  \draw[line width=0.9pt] (0,0) -- (0,700) ;
+  \draw (3,-100) node[font=\small] {Année} ;
+  \draw (-1,350) node[font=\scriptsize,rotate=90] {Production d'électricité en France (en TWh)} ;
+  \foreach \annee [count=\i] in {1995,2001,2006,2011,2016}{%
+  	\draw (\i,0) node[below,font=\small] {\annee} ;
+  }
+  \foreach \ordo in {0,100,...,700}{%
+  	\draw[line width=0.9pt] (0,\ordo)--++(-2.75pt,0) node[left,font=\small] {\ordo} ;
+  }
+  %barres
+  \placebarretriple{1}{375}{425}{500}
+  \placebarretriple{2}{425}{500}{575}
+  \placebarretriple{3}{450}{520}{575}
+  \placebarretriple{4}{440}{500}{530}
+  \placebarretriple{5}{400}{460}{530}
+  %légende
+  \draw[line width=0.45pt,fill=white] (0.225,612.5) rectangle ({5.75},775) ;
+  \draw[thick,fill=lightgray] ({1.25-\largbarre},625) rectangle++ ({2*\largbarre},75) ;
+  \draw (1.25,700) node[above,font=\footnotesize] {\vphantom{yq}Nucléaire} ;
+  \draw[thick,pattern=north east lines] ({3-\largbarre},625) rectangle++ ({2*\largbarre},75) ;
+  \draw (3,700) node[above,font=\footnotesize] {Thermique} ;
+  \draw[thick,pattern=north west lines] ({4.75-\largbarre},625) rectangle++ ({2*\largbarre},75) ;
+  \draw (4.75,700) node[above,font=\footnotesize] {Hydraulique} ;
+\end{tikzpicture}\hfill\null
+
+Le diagramme en barres ci-contre donne la production d'électricité, en Twh (térawatt-heure) selon son origine (source : INSEE).
+
+L'année où la production d'électricité d'origine hydraulique était la plus importante est :
+
+\smallskip
+
+\eamreponsesautom[2]{1995}{2001}{2011}{2016}

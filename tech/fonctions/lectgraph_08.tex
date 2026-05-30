@@ -1,0 +1,21 @@
+%=== tech/fonctions/lectgraph_08.tex || Fonctions || Graphique
+
+\hfill\begin{GraphiqueTikz}[x=0.375cm,y=0.375cm,Xmin=-3,Xmax=4,Xgrilles=1,Ymin=-3,Ymax=4,Ygrilles=1]
+  \TracerAxesGrilles[Origine,Police=\tiny,Origine]{-2,1,3}{1}
+  \TracerCourbe[Couleur=blue,Debut=-2,Fin=3]< f >{x}
+  \TracerCourbe[Couleur=red,Debut=-2,Fin=1]< g >{4/3*x^(2)+x-4/3}
+  \TracerCourbe[Couleur=red,Debut=1,Fin=3]< h >{-(x-2)^2+2}
+  \MarquerPts*[Style=+]{(-2,-2),(-1,-1),(1,1),(3,3),(3,1),(-2,2)}
+  \PlacerTexte[Couleur=blue,Police=\footnotesize,Position=above left]{(3,2.5)}{$\mathcal{C}^{\prime}$}
+  \PlacerTexte[Couleur=red,Police=\footnotesize,Position=below right]{(-2,2)}{$\mathcal{C}$}
+\end{GraphiqueTikz}\hfill\null
+
+\smallskip
+
+Dans la figure ci-contre, les courbes $\mathcal{C}$ et $\mathcal{C}^{\prime}$ représentent respectivement les fonctions $f$ et $g$.
+
+L'ensemble des solutions de l'inéquation $f(x) \leqslant g(x)$ est :
+
+\smallskip
+
+\eamreponsesautom[2]{$[-2\,;\,-1]$}{$[1\,;\,2]$}{$[-2\,;\,-1] \cup [1\,;\,2]$}{$[-2\,;\,-1] \cap [1\,;\,2]$}
