@@ -1,0 +1,20 @@
+%=== obli/fonctions/lectgraph_01.tex || Fonctions || Graphique
+
+Soit $f$ une fonction définie sur l'intervalle $[-4 ; 4]$ dont la représentation graphique est donnée ci-dessous.
+
+\begin{Centrage}
+	\begin{GraphiqueTikz}[x=0.375cm,y=0.375cm,Xmin=-4.5,Xmax=4.5,Ymin=-2.5,Ymax=4.25,Xgrilles=0.5,Ygrilles=0.5]
+		\TracerAxesGrilles*[Origine,Police=\tiny]{-4,...,4}{-2,...,4}
+		\DefinirCourbe[Trace,Couleur=red,Fin=-1]< fA >{ 1.5*x^(2) + 6*x + 4.5 }
+		\DefinirCourbe[Trace,Couleur=red,Debut=-1,Fin=1]< fB >{ -1.5*x^(2) + 1.5 }
+		\DefinirCourbe[Trace,Couleur=red,Debut=1]< fC >{ 2*x^(2) - 6*x + 4 }
+	\end{GraphiqueTikz}
+\end{Centrage}
+
+\smallskip
+
+L'ensemble $\mathcal{S}$ des solutions de l'équation $f(x)=0$ est :
+
+\smallskip
+
+\eamreponsesautom[2]{$\mathcal{S}=\{0\}$}{$\mathcal{S}=[-3 ; 2]$}{$\mathcal{S}=\{-3 ;-1 ; 1 ; 2\}$}{$\mathcal{S}=\{1,5\}$}
