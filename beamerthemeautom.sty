@@ -1,0 +1,156 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemeautom}[2026/05/08 Classe Beamer Automatismes, v0.1.0]
+
+% ==== Packages initiaux
+\@ifpackageloaded{customenvs}
+  {}
+  {\RequirePackage[beamer]{customenvs}}
+  
+% ==== Couleurs prédéfinies
+\definecolor{bacbleu}{HTML}{4d4b77}
+\definecolor{bacbleufonce}{HTML}{323150}
+\definecolor{bacgrisbase}{HTML}{dfdafd}
+\definecolor{bactext}{HTML}{0F172A}
+
+\colorlet{eamcouleurprincipale}{bacbleu}
+\colorlet{eamcouleurfond}{bacgrisbase!10}
+\colorlet{eamcouleursecondaire}{bacbleufonce}
+\colorlet{eamcouleurlabels}{darkgray!50!black}
+
+% ==== Booléens / Options
+\RequirePackage{ifthen}
+\newboolean{beamer@theme@eam@Noto}
+\setboolean{beamer@theme@eam@Noto}{false}
+\newboolean{beamer@theme@eam@Melange}
+\setboolean{beamer@theme@eam@Melange}{false}
+\def\EAMmatiere{Mathématiques}
+\def\EAMniveau{Première générale}
+\def\EAMstylelabels{(a)}
+\def\EAMlogotitre{\ceicon[height=4cm]{seomathlearning}~}
+\def\EAMicone{\ceicon[height=dauto,dstrut=(qÉ)]{mathlearning}~}
+
+\DeclareOptionBeamer{Noto}{\setboolean{beamer@theme@eam@Noto}{true}}
+\DeclareOptionBeamer{Melange}{\setboolean{beamer@theme@eam@Melange}{true}}
+\DeclareOptionBeamer{Matiere}{\def\EAMmatiere{#1}}
+\DeclareOptionBeamer{Niveau}{\def\EAMniveau{#1}}
+\DeclareOptionBeamer{Labels}{\def\EAMstylelabels{#1}}
+\DeclareOptionBeamer{CouleurPrincipale}{\colorlet{eamcouleurprincipale}{#1}}
+\DeclareOptionBeamer{CouleurSecondaire}{\colorlet{eamcouleursecondaire}{#1}}
+\DeclareOptionBeamer{Logo}{\def\EAMlogotitre{#1}}
+\DeclareOptionBeamer{Icone}{\def\EAMicone{#1}}
+
+\ProcessOptionsBeamer
+
+% ==== Polices
+\ifthenelse{\boolean{beamer@theme@eam@Noto}}%
+  {%
+    \RequirePackage{fontspec}
+    \RequirePackage[default,scale=0.925]{lato}
+    \RequirePackage[math-style=french,bold-style=ISO,Scale=0.925]{lete-sans-math}
+    \setsansfont{Lato}[Scale=MatchLowercase]
+    \setmonofont{CascadiaMono}[Scale=MatchLowercase]
+  }{}%
+
+%\everymath{\displaystyle}
+
+% ==== Options simplekv
+\ifthenelse{\boolean{beamer@theme@eam@Melange}}%
+  {\setKVdefault[reponsesexamqcm]{Melange=true}}{}
+
+% ==== Paramètres
+\newcommand\TitreDiapoAutomatisme[3]{%
+  \vfill
+  \centering
+  {\Large\bfseries\color{eamcouleurprincipale} {#1} -- {#2}}\\[8pt]
+  {\large {\EAMmatiere\ - \EAMniveau}}\\[4pt]
+  {\textcolor{gray}{{#3}}}\\[12pt]
+  {\EAMlogotitre}
+  \vfill
+}
+
+% ==== Compteur
+\RequirePackage{totcount}
+\newtotcounter{eamnbquest}
+
+% ==== Thème Beamer
+\usetheme{default}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{frametitle continuation}{}
+
+\setbeamercolor{frametitle}{bg=eamcouleurprincipale, fg=white}
+\setbeamercolor{framesubtitle}{fg=white}
+\setbeamercolor{title}{fg=eamcouleurprincipale}
+\setbeamercolor{normal text}{fg=bactext}
+\setbeamercolor{structure}{fg=eamcouleurprincipale}
+\setbeamercolor{footline}{fg=white, bg=eamcouleursecondaire}
+\setbeamercolor{background canvas}{bg=white}
+
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\large,series=\ttfamily}
+
+% ==== En-tête de frame
+\setbeamertemplate{frametitle}{
+  \vskip0pt
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.25em,dp=0.5em,leftskip=1em]{frametitle}
+    \usebeamerfont{frametitle}\vphantom{(qÉ)}\insertframetitle
+    \ifx\insertframesubtitle\@empty\else
+      \hfill{\usebeamerfont{framesubtitle}\vphantom{(qÉ)}\insertframesubtitle}\hspace{1em}
+    \fi
+  \end{beamercolorbox}
+}
+
+% ==== Pied de page
+\setbeamertemplate{footline}{
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.75em,dp=0.5em,leftskip=1em,rightskip=1em]{footline}
+    \small \vphantom{(qÉ)}Automatismes — \EAMmatiere
+    \hspace{0.5em}
+  \end{beamercolorbox}
+}
+
+% ==== Commandes QCM
+\tcbset{boiteeamreponses/.style={%
+    enhanced,colback=eamcouleurfond,colframe=eamcouleurprincipale!75,arc=4pt,boxrule=0.8pt,top=3pt,bottom=3pt,left=6pt,right=6pt}
+}
+\newcommand\eamreponsesautom[5][2]{%2 colonnes
+  \vspace{4pt}%
+  \begin{tcolorbox}[boiteeamreponses]
+    \ExamReponsesQCM%
+      [NbCols=#1,PoliceLabels={\bfseries\color{eamcouleurlabels}},Labels=\EAMstylelabels]%
+      {{#2},{#3},{#4},{#5}}%
+      <rowsep=4pt,colsep=8pt>
+  \end{tcolorbox}%
+}
+
+% ==== Commandes internes
+\newcommand\automatqcmcamembert[6]{%
+  \begin{tikzpicture}[line join=bevel,scale=0.6,transform shape]
+    \draw[bacgris,very thick,fill=darkgray]  (0,0) -- (#1:1.25) arc(#1:#2:1.25) -- cycle;
+    \draw[bacgris,very thick,fill=lightgray] (0,0) -- (#3:1.25) arc(#3:#4:1.25) -- cycle;
+    \draw[bacgris,very thick,fill=cyan!50]   (0,0) -- (#5:1.25) arc(#5:#6:1.25) -- cycle;
+  \end{tikzpicture}%
+}
+\newcommand{\automatquest}[1]{}
+
+% ==== Macro frame automatisme
+\NewDocumentCommand\CreerDiapoAutomatisme{ O{} m m }{%\AutomatFrame{Thème}{numéro/total}{fichier}
+  \stepcounter{eamnbquest}
+  \IfBlankTF{#1}{%
+      \begin{frame}{\EAMicone\textbf{#2}}{[\theeamnbquest{}/\total{eamnbquest}]}%
+    }{%
+      \begin{frame}[#1]{\EAMicone\textbf{#2}}{[\theeamnbquest{}/\total{eamnbquest}]}%
+    }%
+    \vspace{4pt}
+    \input{#3}
+  \end{frame}
+}
+
+\newenvironment{DiapoAutomatisme}[2][]
+{%
+  \stepcounter{eamnbquest}
+  \begin{frame}[fragile,environment=DiapoAutomatisme,#1]{\EAMicone\textbf{#2}}{[\theeamnbquest{}/\total{eamnbquest}]}%
+    \vspace{4pt}
+  }%
+  {%
+  \end{frame}%
+}
